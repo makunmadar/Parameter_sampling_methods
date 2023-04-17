@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="OPEN_SSH" host="login.cosma.dur.ac.uk" id="fbb98d63-b635-4714-8122-5cacec64bd28" port="22" nameFormat="DESCRIPTIVE" username="dc-mada1" useOpenSSHConfig="true" />
+    </configs>
+  </component>
+</project>

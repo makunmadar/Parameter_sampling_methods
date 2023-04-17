@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="3b8ce226-baa1-4622-afa8-7ea0744df561" name="COSMA" url="http://localhost">
+        <fileTransfer mountedRoot="$USER_HOME$/.ssh" accessType="MOUNT" port="0" />
+      </webServer>
+    </option>
+  </component>
+</project>
