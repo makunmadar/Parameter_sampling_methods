@@ -2,20 +2,25 @@ from scipy.stats import qmc
 import pandas as pd
 
 # Define the upper and lower bounds for each parameter
-parabounds = {'alpha_reheat': [0.3, 3.0],
-              'vhotdisk': [100, 550],
-              'vhotburst': [100, 550],
-              'alphahot': [1.5, 3.5],
-              'alpha_cool': [0.0, 2.0],
-              'nu_sf': [0.2, 1.7]
+parabounds = {'alpha_reheat': [0.2, 3.0],
+              'vhotdisk': [10, 800],
+              'vhotburst': [10, 800],
+              'alphahot': [1.0, 4.0],
+              'alpha_cool': [0.0, 4.0],
+              'nu_sf': [0.1, 4.0],
+              'Fstab': [0.5, 1.2],  # stabledisk
+              'fellip': [0.2, 0.5],  # fellip
+              'fburst': [0.01, 0.3],  # fburst
+              'fSMBH': [0.001, 0.05],  # F_SMBH
+              'tau_burst': [0.01, 0.2]  #tau_star_min_burst Lacey goes up to 0.1.
               }
 
-seed = 1
+seed = 42
 
 df = pd.DataFrame(parabounds)
 headers = df.columns
 
-engine = qmc.LatinHypercube(d=6, seed=seed)  # d will equal the number of parameters
+engine = qmc.LatinHypercube(d=11, seed=seed)  # d will equal the number of parameters
 sample = engine.random(n=1000) # n is the number of samples per parameter
 
 bounds = df.values.tolist()
@@ -25,6 +30,17 @@ lhc = qmc.scale(sample, bounds[0], bounds[1])
 parasamp = pd.DataFrame(lhc, columns=headers)
 print(parasamp)
 
-# Update the parameters dataframe to include the redshifts and subvolumes for each parameter set.
+additional_samples = engine.random(n=2000)
+# Remove the samples that were already in "parasamp"
+additional_samples = additional_samples[len(parasamp):]
 
-parasamp.to_csv('test_parameters_1000v1.csv', sep=',', index=False)
+additional_samples = qmc.scale(additional_samples, bounds[0], bounds[1])
+
+additional_df = pd.DataFrame(additional_samples, columns=parasamp.columns)
+print(additional_df)
+
+# Concatenate the additional samples to the existing DataFrame
+new_parasamp = pd.concat([parasamp, additional_df], ignore_index=True)
+
+
+new_parasamp.to_csv('updated_parameters_2000v3.csv', sep=',', index=False)
