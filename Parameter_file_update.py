@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv('updated_parameters_2000v3.csv')
+df = pd.read_csv('updated_parameters_3000v4.csv')
 columns = df.columns.tolist()
 extra_columns = ['redshift', 'subvolume', 'modelno']
 columns.extend(extra_columns)
@@ -25,4 +25,4 @@ for i in range(len(df)):
 df_new = pd.DataFrame(columns=columns, data=data)
 print(df_new)
 
-df_new.to_csv('updated_parameters_extended_2000v3.csv', sep=',', index=False)
+df_new.to_csv('updated_parameters_extended_3000v4.csv', sep=',', index=False)

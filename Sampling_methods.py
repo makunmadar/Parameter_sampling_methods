@@ -42,5 +42,17 @@ print(additional_df)
 # Concatenate the additional samples to the existing DataFrame
 new_parasamp = pd.concat([parasamp, additional_df], ignore_index=True)
 
+# Even more 1000 runs
+evenmore_samples = engine.random(n=3000)
+# Remove the samples already in "new_parasamp"
+evenmore_samples = evenmore_samples[len(new_parasamp):]
 
-new_parasamp.to_csv('updated_parameters_2000v3.csv', sep=',', index=False)
+evenmore_samples = qmc.scale(evenmore_samples, bounds[0], bounds[1])
+
+evenmore_df = pd.DataFrame(evenmore_samples, columns=parasamp.columns)
+print(evenmore_df)
+
+# Concatenate the additional samples to the existing DataFrame
+evenmore_parasamp = pd.concat([new_parasamp, evenmore_df], ignore_index=True)
+
+evenmore_parasamp.to_csv('updated_parameters_3000v4.csv', sep=',', index=False)
