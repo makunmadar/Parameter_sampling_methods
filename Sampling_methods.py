@@ -21,7 +21,7 @@ df = pd.DataFrame(parabounds)
 headers = df.columns
 
 engine = qmc.LatinHypercube(d=11, seed=seed)  # d will equal the number of parameters
-sample = engine.random(n=1000) # n is the number of samples per parameter
+sample = engine.random(n=1000)  # n is the number of samples per parameter
 
 bounds = df.values.tolist()
 
